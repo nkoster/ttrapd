@@ -1,4 +1,4 @@
-/* Tiny Trap Daemon */
+/* Tiny Trap Daemon - Bugs by Niels Koster */
  
 #include <errno.h>
 #include <stdio.h>
