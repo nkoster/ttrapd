@@ -57,23 +57,24 @@ int main(int argc, char *argv[]) {
  
         while (1) {
  
-                /* check every 20 seconds */
-                sleep(20);
+                /* test every 10 seconds */
+                sleep(10);
  
                 if (lstat(filename, &st) < 0) {
                         syslog (LOG_ERR, "%s is not accessable", filename);
                 } else {
                         if ( (long) st.st_atime != bookmark) {
-                                syslog(LOG_ALERT, "ALERT!");
-                                syslog(LOG_ALERT, "%ld != %ld %ld", (long) st.st_atime, bookmark, counter);
-                                /* send email alert every 5 minutes  */
+                                /* send alerts every 5 minutes  */
                                 if (counter == 0) {
+	                                syslog(LOG_ALERT, "ALERT!");
+        	                        syslog(LOG_ALERT, "%ld != %ld %ld", (long) st.st_atime, bookmark, counter);
                                         syslog(LOG_ALERT, "Sending alert notification...");
 					/* here you have to specify the email address for alerts */
-                                        system ("echo 'Possible integrity violation detected!' | mail -s 'ttrapd ALERT' ttrapd@paranoidsecurity.nl");
-                                }
+                                        system ("lsof -ni | mail -s 'ttrapd ALERT' niels@w3b.net");
+                                        system (" lsof -ni > /tmp/ttrapd ; netstat -o >> /tmp/ttrapd; cat /tmp/ttrapd |mail -s 'ttrapd ALERT' niels@w3b.net ; rm -f /tmp/ttrapd");
+                                } 
                                 /* reset counter after (15 times 20 secs) 5 minutes */
-                                if (counter < 15) { counter += 1; } else { counter = 0; }
+                                if (counter < 30) { counter += 1; } else { counter = 0; }
                         }
                 }
         }
