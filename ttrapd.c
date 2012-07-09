@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
 					/* here you have to specify the email address for alerts */
                                         system ("lsof -ni > /tmp/ttrapd ; netstat -o >> /tmp/ttrapd ; cat /tmp/ttrapd | mail -s 'ttrapd ALERT' ttrapd@paranoidsecurity.nl ; rm -f /tmp/ttrapd");
                                 } 
-                                /* reset counter after (15 times 20 secs) 5 minutes */
+                                /* reset counter after (30 times 10 secs) 5 minutes */
                                 if (counter < 30) { counter += 1; } else { counter = 0; }
                         }
                 }
