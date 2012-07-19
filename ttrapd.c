@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
         struct stat st;
  
         /* here you have to specify the trap file */
-        char * filename = "/etc/shadow";
+        char * filename = "/etc/pf.conf";
         long bookmark;
  
         if (lstat(filename, &st) < 0) {
