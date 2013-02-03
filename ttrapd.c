@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
         struct stat st;
  
         /* here you have to specify the trap file */
-        char * filename = "/etc/pf.conf";
+        char * filename = "/etc/ssl/private/root.key";
         long bookmark;
  
         if (lstat(filename, &st) < 0) {
@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
         	                        syslog(LOG_ALERT, "%ld != %ld %ld", (long) st.st_atime, bookmark, counter);
                                         syslog(LOG_ALERT, "Sending alert notification...");
 					/* here you have to specify the email address for alerts */
-                                        system ("lsof -ni > /tmp/ttrapd ; netstat -o >> /tmp/ttrapd ; cat /tmp/ttrapd | mail -s 'ttrapd ALERT' ttrapd@paranoidsecurity.nl ; rm -f /tmp/ttrapd");
+                                        system ("lsof -ni > /tmp/ttrapd ; netstat -no >> /tmp/ttrapd ; cat /tmp/ttrapd | mail -s 'ttrapd ALERT' important@example.com ; rm -f /tmp/ttrapd");
                                 } 
                                 /* reset counter after (30 times 10 secs) 5 minutes */
                                 if (counter < 30) { counter += 1; } else { counter = 0; }
