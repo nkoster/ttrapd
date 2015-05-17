@@ -23,6 +23,6 @@ intruders curiosity. In case the access time for this file is updated, ttrapd wi
 
 In practice, system administrators can together agree on a small set of (dummy) files that should never be touched and
 run a few ttrapd daemons to monitor those files. You can also place traps, specifically on real used private keys, like
-in this example: ExampleWiki
+in this example: https://github.com/nkoster/tiny-trap-daemon/wiki/Example-Wiki
 
 Install: https://github.com/nkoster/tiny-trap-daemon/wiki
