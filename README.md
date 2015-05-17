@@ -25,4 +25,4 @@ In practice, system administrators can together agree on a small set of (dummy) 
 run a few ttrapd daemons to monitor those files. You can also place traps, specifically on real used private keys, like
 in this example: ExampleWiki
 
-    Install: TinyTrapWiki
+Install: https://github.com/nkoster/tiny-trap-daemon/wiki
