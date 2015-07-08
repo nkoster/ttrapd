@@ -13,7 +13,7 @@ Every time when you access a file in a generic UNIX-like file system, mounted wi
 
 This concept makes it possible to monitor a file for an atime update, and therefore to notice that somebody is currently using that file.
 
-This is simply what **`ttrapd`** does. It forks itself into the background, and monitors a specified file for an atime update. This can be just a dummy file with an interesting name, ownership and file permissions. Only meant to trigger the intruders curiosity, a decoy. In case the access time for this file is updated, **`ttrapd`** will notice and alert.
+This is simply what **`ttrapd`** does. It forks itself into the background, and monitors a specified file for an atime update. This can be just a dummy file with an interesting name, ownership and file permissions. Only meant to trigger the intruders curiosity, as a decoy. In case the access time for this file is updated, **`ttrapd`** will notice and alert.
 
 In practice, system administrators can together agree on a small set of (dummy) files that should never be touched and
 run a few **`ttrapd`** daemons to monitor those files.
