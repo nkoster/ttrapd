@@ -8,7 +8,7 @@ interesting (or commonly used) names and locations.
 
 For example, files like **`/etc/shadow`**, **`/etc/ssl/private/vpn.key`** or **`/etc/pf.conf`** can't be left without inspecting by generally every root privileged intruder. Especially, when you take in account that the intruder probably gained root privileges, just for the purpose to gain access to these sensitive files.
 
-Every time when you access a file in a generic UNIX-like file system, mounted with "atime" enabled, the access time
+Every time when you access a file in a generic UNIX-like file system, mounted with "atime" enabled, the _access_ time
 (atime) is updated to the current time. Even when file access only involves reading!
 
 This concept makes it possible to monitor a file for an atime update and therefore to notice that somebody is currently using that file.
