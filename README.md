@@ -15,7 +15,7 @@ This concept makes it possible to monitor a file for an atime update, and theref
 
 This is simply what **`ttrapd`** does. It forks itself into the background, and monitors a specified file for an atime update. This can be just a dummy file with an interesting name, ownership and file permissions. Only meant to trigger the intruders curiosity, as a decoy. In case the access time for this file is updated, **`ttrapd`** will notice and alert.
 
-In practice, system administrators can together agree on a small set of (dummy) files that should never be touched, and run a few **`ttrapd`** daemons to monitor those files. With this approach, you might detect persons within your own organization, that violate integrity.
+In practice, system administrators can together agree on a small set of (dummy) files that should _never_ be touched, and run a few **`ttrapd`** daemons to monitor those files. With this approach, you might detect persons within your own organization, that violate integrity.
 
 You can also place traps on real used private keys. This approach is best for detecting hackers, intruders that do not belong to your organization. Check this example: https://github.com/nkoster/tiny-trap-daemon/wiki/Example-Wiki
 
