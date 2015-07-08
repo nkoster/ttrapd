@@ -11,7 +11,7 @@ For example, files like **`/etc/shadow`**, **`/etc/ssl/private/vpn.key`** or **`
 Every time when you access a file in a generic UNIX-like file system, mounted with "atime" enabled, the _access_ time
 (atime) is updated to the _current_ time. Even when file access only involves _reading_!
 
-This concept makes it possible to monitor a file for an atime update and therefore to notice that somebody is currently using that file.
+This concept makes it possible to monitor a file for an atime update, and therefore to notice that somebody is currently using that file.
 
 This is simply what **`ttrapd`** does. It forks itself into the background and monitors a specified file for an atime update. This can be just a dummy file with an interesting name, ownership and file permissions, only meant to trigger the intruders curiosity. In case the access time for this file is updated, **`ttrapd`** will notice and alert.
 
