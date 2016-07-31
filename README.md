@@ -1,4 +1,4 @@
-![Tiny Trap](https://raw.githubusercontent.com/nkoster/tiny-trap-daemon/master/ttrapd.png "Tiny Trap")
+![Tiny Trap](ttrapd.png "Tiny Trap")
 
 "**`ttrapd`**"  is a very simple and lightweight trap, written in C, that can help to detect an intruder or "integrity violator" with root privileges in a UNIX-like computer system.
 
