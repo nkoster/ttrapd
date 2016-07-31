@@ -19,6 +19,6 @@ This is simply what **`ttrapd`** does. It forks itself into the background, and 
 
 In practice, system administrators can together agree on a small set of (dummy) files that should _never_ be touched, and run a few **`ttrapd`** daemons to monitor those files. With this approach, you might detect persons within your own organization, that violate integrity.
 
-You can also place traps on real used private keys. This approach is best for detecting hackers, intruders that do not belong to your organization. Check this example: https://github.com/nkoster/tiny-trap-daemon/wiki/Example-Wiki
+You can also place traps on real used private keys. This approach is best for detecting hackers, intruders that do not belong to your organization. Check this example: https://gitlab.com/nkoster/tiny-trap-daemon/wikis/Example-Wiki
 
  **Install: https://gitlab.com/nkoster/tiny-trap-daemon/wikis/home**
