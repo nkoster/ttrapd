@@ -43,26 +43,23 @@ int main(int argc, char *argv[])
         int wd;
         char buffer[EVENT_BUF_LEN];
         fd = inotify_init();
-        if (fd < 0)
-        {
+        if (fd < 0) {
             exit(EXIT_FAILURE);
         }
         wd = inotify_add_watch(fd, "/tmp/aap", IN_ACCESS);
         length = read(fd, buffer, EVENT_BUF_LEN);
-        if (length < 0)
-        {
+        if (length < 0) {
             exit(EXIT_FAILURE);
         }
-        while (i < length)
-        {
+        while (i < length) {
             struct inotify_event *event = (struct inotify_event *) &buffer[i];
             i += EVENT_SIZE + event->len;
         }
         inotify_rm_watch(fd, wd);
         close(fd);
-        // extremely suspicious, log, do the system() call, and exit this process.
-        syslog(LOG_ALERT, "Please make a well-considered decision.");
-        system ("(ps faxuwww; echo; netstat -n; echo) >/tmp/ttrapd ; cat /tmp/ttrapd | mail -s 'ttrapd ALERT' niels@w3b.net");
+        // Extremely suspicious. Collect evidence, do the system() call, and exit this process.
+        syslog(LOG_ALERT, "Please make well-considered decisions.");
+        system("(ps faxuwww; echo; netstat -n; echo) >/tmp/ttrapd ; cat /tmp/ttrapd | mail -s 'ttrapd ALERT' niels@w3b.net");
         exit(666);
     }
     exit(EXIT_SUCCESS);
