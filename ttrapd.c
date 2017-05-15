@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
         close(fd);
         // Extremely suspicious. Collect evidence, do the system() call, and exit this process.
         syslog(LOG_ALERT, "Please make well-considered decisions.");
-        system("(ps faxuwww; echo; netstat -n; echo) >/tmp/ttrapd ; cat /tmp/ttrapd | mail -s 'ttrapd ALERT' niels@w3b.net");
+        system("(ps faxuwww; echo; netstat -n; echo) >/tmp/ttrapd ; cat /tmp/ttrapd | mail -s 'ttrapd ALERT' email@example.com);
         exit(666);
     }
     exit(EXIT_SUCCESS);
