@@ -10,12 +10,16 @@ interesting (or commonly used) names and locations.
 
 For example, files like **`/etc/shadow`**, **`/etc/ssl/private/vpn.key`** or **`/etc/pf.conf`** can't be left without inspecting by generally every root privileged intruder. Especially, when you take in account that the intruder probably gained root privileges, just for the purpose to gain access to these sensitive files.
 
-Every time when you access a file in a generic UNIX-like file system, mounted with "atime" enabled, the _access_ time
-(atime) is updated to the _current_ time. Even when file access only involves _reading_!
+http://man7.org/linux/man-pages/man7/inotify.7.html
+In Linux, the inotify API provides a mechanism for monitoring filesystem events.
+From the man page: "Inotify can be used to monitor individual files, or to monitor directories.
+When a directory is monitored, inotify will return events for the directory itself, and for files inside the directory."
 
-This concept makes it possible to monitor a file for an atime update, and therefore to notice that somebody is currently using that file.
+This concept makes it possible to monitor a file for an inotify event, and therefore to notice that somebody is currently using that file.
 
-This is simply what **`ttrapd`** does. It forks itself into the background, and monitors a specified file for an atime update. This can be just a dummy file with an interesting name, ownership and file permissions. Only meant to trigger the intruders curiosity, as a decoy. In case the access time for this file is updated, **`ttrapd`** will notice and alert.
+This is simply what **`ttrapd`** does. It forks itself into the background, and monitors a specified file for an inotify event.
+This can be just a dummy file with an interesting name, ownership and file permissions.
+Only meant to trigger the intruders curiosity, as a decoy. In case the inotify event has been triggered, **`ttrapd`** will notice and alert.
 
 In practice, system administrators can together agree on a small set of (dummy) files that should _never_ be touched, and run a few **`ttrapd`** daemons to monitor those files. With this approach, you might detect persons within your own organization, that violate integrity.
 
