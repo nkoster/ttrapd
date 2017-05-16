@@ -37,8 +37,6 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
     syslog (LOG_NOTICE, "[%s] loaded into background by (uid=%d, gid=%d)", argv[0], getuid(), getgid());
-    printf("\nAt your service,\n");
-    printf("\n%s loaded into background by (uid=%d, gid=%d)\n\n", argv[0], getuid(), getgid());
     if ((chdir("/")) < 0) {
         exit(EXIT_FAILURE);
     }
@@ -46,7 +44,8 @@ int main(int argc, char *argv[]) {
     if (fd < 0) {
         exit(EXIT_FAILURE);
     }
-    wd = inotify_add_watch(fd, "/", IN_ACCESS);
+    // Here you specify the file you want to put the trigger on.
+    wd = inotify_add_watch(fd, "/etc/ssl/private/server.key", IN_ACCESS);
     length = read(fd, buffer, EVENT_BUF_LEN);
     if (length < 0) {
         exit(EXIT_FAILURE);
@@ -61,8 +60,9 @@ int main(int argc, char *argv[]) {
     // Extremely suspicious: collect evidence, do the system() call.
     syslog(LOG_ALERT, "Please make well-considered decisions.");
     system("(ps faxuwww; echo; netstat -n; echo) >/tmp/ttrapd ; cat /tmp/ttrapd | mail -s 'ttrapd ALERT' someone@example.com");
-    sleep(2);
-    // Execute myself (or even something else!) and exit this process.
+    // Sleep for to 30 seconds to prevent syslog from getting filled too fast when in a "trigger loop".
+    sleep(30);
+    // Execute "us" (or even something else!) and exit this process.
     system(argv[0]);
     exit(EXIT_INOTIFY);
 }
