@@ -4,7 +4,7 @@
 
 */
 
-// DO FORGET TO CHANGE THE system() BELOW!!!
+// DO FORGET TO CHANGE THE system() CALL BELOW!!!
 
 #include <stdio.h>
 #include <stdlib.h>
