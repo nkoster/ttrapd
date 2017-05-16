@@ -1,6 +1,6 @@
 ![Tiny Trap](ttrapd.png "Tiny Trap")
 
-"**`ttrapd`**"  is a very simple and lightweight trap, written in C, that can help to detect an intruder or "integrity violator" with root privileges in a UNIX-like computer system.
+"**`ttrapd`**"  is a very simple and lightweight trap, written in C, that can help to detect an intruder or "integrity violator" with root privileges in a Linux computer system.
 
 The "integrity violation" or "intrusion detection" pitfall is based upon the curiosity potency of intruders.
 
