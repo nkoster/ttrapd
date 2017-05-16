@@ -25,3 +25,5 @@ In practice, system administrators can together agree on a small set of (dummy) 
 You can also place traps on real used private keys. This approach is best for detecting hackers, intruders that do not belong to your organization. Check this example: https://gitlab.com/nkoster/tiny-trap-daemon/wikis/Example-Wiki
 
  **Install: https://gitlab.com/nkoster/tiny-trap-daemon/wikis/home**
+
+Note for OpenBSD: I am converting this concept into kqueue() logic. I'll create a new project for that. Not finished yet.
