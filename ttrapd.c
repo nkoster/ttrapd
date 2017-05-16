@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     syslog(LOG_ALERT, "Please make well-considered decisions.");
     system("(ps faxuwww; echo; netstat -n; echo) >/tmp/ttrapd ; cat /tmp/ttrapd | mail -s 'ttrapd ALERT' someone@example.com");
     sleep(2);
-    // Execute myself and exit this process.
+    // Execute myself (or even something else!) and exit this process.
     system(argv[0]);
     exit(EXIT_INOTIFY);
 }
