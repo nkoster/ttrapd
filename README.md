@@ -26,4 +26,4 @@ You can also place traps on real used private keys. This approach is best for de
 
  **Install: https://gitlab.com/nkoster/tiny-trap-daemon/wikis/home**
 
-Note for OpenBSD: I am converting this concept into kqueue() logic. I'll create a new project for that. Not finished yet.
+Note for OpenBSD: I am converting this concept into `kqueue()` logic. I'll create a new project for that. Not finished yet.
