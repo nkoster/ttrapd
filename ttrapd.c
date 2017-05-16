@@ -3,21 +3,30 @@
    Tiny Trap Daemon - Bugs by Niels Koster
 
 */
- 
+
+// DO FORGET TO CHANGE THE system() BELOW!!!
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <syslog.h>
 #include <errno.h>
+#include <sys/inotify.h>
 #include <sys/types.h>
-#include <linux/inotify.h>
 
 #define EVENT_SIZE (sizeof (struct inotify_event))
 #define EVENT_BUF_LEN (1024 * (EVENT_SIZE + 16))
+
+#define EXIT_INOTIFY 600
 
 int main(int argc, char *argv[])
 {
     pid_t pid, sid;
     pid = fork();
+    long counter = 0;
+    int length, i = 0;
+    int fd;
+    int wd;
+    char buffer[EVENT_BUF_LEN];
     if (pid < 0) {
         exit(EXIT_FAILURE);
     } else {
@@ -36,31 +45,27 @@ int main(int argc, char *argv[])
     if ((chdir("/")) < 0) {
         exit(EXIT_FAILURE);
     }
-    long counter = 0;
-    while (1) {
-        int length, i = 0;
-        int fd;
-        int wd;
-        char buffer[EVENT_BUF_LEN];
-        fd = inotify_init();
-        if (fd < 0) {
-            exit(EXIT_FAILURE);
-        }
-        wd = inotify_add_watch(fd, "/tmp/aap", IN_ACCESS);
-        length = read(fd, buffer, EVENT_BUF_LEN);
-        if (length < 0) {
-            exit(EXIT_FAILURE);
-        }
-        while (i < length) {
-            struct inotify_event *event = (struct inotify_event *) &buffer[i];
-            i += EVENT_SIZE + event->len;
-        }
-        inotify_rm_watch(fd, wd);
-        close(fd);
-        // Extremely suspicious. Collect evidence, do the system() call, and exit this process.
-        syslog(LOG_ALERT, "Please make well-considered decisions.");
-        system("(ps faxuwww; echo; netstat -n; echo) >/tmp/ttrapd ; cat /tmp/ttrapd | mail -s 'ttrapd ALERT' email@example.com");
-        exit(666);
+    fd = inotify_init();
+    if (fd < 0) {
+        exit(EXIT_FAILURE);
     }
-    exit(EXIT_SUCCESS);
+    wd = inotify_add_watch(fd, "/", IN_ACCESS);
+    length = read(fd, buffer, EVENT_BUF_LEN);
+    if (length < 0) {
+        exit(EXIT_FAILURE);
+    }
+    // Just respond to all events.
+    while (i < length) {
+        struct inotify_event *event = (struct inotify_event *) &buffer[i];
+        i += EVENT_SIZE + event->len;
+    }
+    inotify_rm_watch(fd, wd);
+    close(fd);
+    // Extremely suspicious: collect evidence, do the system() call.
+    syslog(LOG_ALERT, "Please make well-considered decisions.");
+    system("(ps faxuwww; echo; netstat -n; echo) >/tmp/ttrapd ; cat /tmp/ttrapd | mail -s 'ttrapd ALERT' someone@example.com");
+    sleep(2);
+    // Execute myself and exit this process.
+    system(argv[0]);
+    exit(EXIT_INOTIFY);
 }
