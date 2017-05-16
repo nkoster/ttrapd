@@ -10,9 +10,8 @@ interesting (or commonly used) names and locations.
 
 For example, files like **`/etc/shadow`**, **`/etc/ssl/private/vpn.key`** or **`/etc/pf.conf`** can't be left without inspecting by generally every root privileged intruder. Especially, when you take in account that the intruder probably gained root privileges, just for the purpose to gain access to these sensitive files.
 
-http://man7.org/linux/man-pages/man7/inotify.7.html
 In Linux, the inotify API provides a mechanism for monitoring filesystem events.
-From the man page: "Inotify can be used to monitor individual files, or to monitor directories.
+From the [man](http://man7.org/linux/man-pages/man7/inotify.7.html) page: "Inotify can be used to monitor individual files, or to monitor directories.
 When a directory is monitored, inotify will return events for the directory itself, and for files inside the directory."
 
 This concept makes it possible to monitor a file for an inotify event, and therefore to notice that somebody is currently using that file.
