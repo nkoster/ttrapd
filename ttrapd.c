@@ -60,13 +60,13 @@ int main(int argc, char *argv[]) {
     }
     fd = inotify_init();
     if (fd < 0) {
-        exit(EXIT_FAILURE);
+        perror( "inotify_init" );
     }
     // Here you specify the file you want to put the trigger on.
     wd = inotify_add_watch(fd, "/etc/ssl/private/server.key", IN_ACCESS);
     length = read(fd, buffer, EVENT_BUF_LEN);
     if (length < 0) {
-        exit(EXIT_FAILURE);
+        perror("read");
     }
     while (i < length) {
         struct inotify_event *event = (struct inotify_event *) &buffer[i];
