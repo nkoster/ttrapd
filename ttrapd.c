@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
     close(fd);
     // Extremely suspicious: collect evidence, do the system() call.
     syslog(LOG_ALERT, "Please make well-considered decisions.");
-    system("(ps faxuwww; echo; netstat -n; echo; lsof 2>&1) | mail -s 'ttrapd ALERT' root 2>&1");
+    system("(ps faxuwww; echo; netstat -n; echo; lsof 2>&1) | mail -s 'ttrapd ALERT' root >/dev/null 2>&1");
     // Sleep for to 30 seconds to prevent syslog from getting filled too fast when in a "trigger loop".
     sleep(30);
     // Execute "self" (or even something else if you want!) and exit this process.
