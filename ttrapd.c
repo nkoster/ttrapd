@@ -38,7 +38,6 @@ int main(int argc, char *argv[]) {
     binary[r] = '\0';
     pid_t pid, sid;
     pid = fork();
-    long counter = 0;
     int length, i = 0;
     int fd;
     int wd;
@@ -75,7 +74,7 @@ int main(int argc, char *argv[]) {
     }
     inotify_rm_watch(fd, wd);
     close(fd);
-    // Extremely suspicious: collect evidence, do the system() call.
+    // Suspicious: log and run the system() call.
     syslog(LOG_ALERT, "Please make well-considered decisions.");
     system("(ps faxuwww; echo; netstat -n; echo; lsof 2>&1) | mail -s 'ttrapd ALERT' root >/dev/null 2>&1");
     // Sleep for to 30 seconds to prevent syslog from getting filled too fast when in a "trigger loop".
