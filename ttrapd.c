@@ -4,13 +4,14 @@
 
 */
 
-// DO NOT FORGET TO CHANGE THE system() CALL BELOW!!!
+// DO NOT FORGET TO CHANGE STUFF BELOW!!!
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <syslog.h>
 #include <unistd.h>
 #include <errno.h>
+#include <limits.h>
 #include <sys/inotify.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -19,6 +20,22 @@
 #define EXIT_INOTIFY 600
 
 int main(int argc, char *argv[]) {
+    struct stat sb;
+    const char *self = "/proc/self/exe";
+    char *linkname;
+    ssize_t r, bufsiz;
+    bufsiz = sb.st_size + 1;
+    if (sb.st_size == 0)
+        bufsiz = PATH_MAX;
+    linkname = malloc(bufsiz);
+    if (linkname == NULL) {
+        exit(EXIT_FAILURE);
+    }
+    r = readlink(self, linkname, bufsiz);
+    if (r == -1) {
+        exit(EXIT_FAILURE);
+    }
+    linkname[r] = '\0';
     pid_t pid, sid;
     pid = fork();
     long counter = 0;
@@ -60,10 +77,11 @@ int main(int argc, char *argv[]) {
     close(fd);
     // Extremely suspicious: collect evidence, do the system() call.
     syslog(LOG_ALERT, "Please make well-considered decisions.");
-    system("(ps faxuwww; echo; netstat -n; echo; lsof 2>&1) | mail -s 'ttrapd ALERT' root");
+    system("(ps faxuwww; echo; netstat -n; echo; lsof 2>&1) | mail -s 'ttrapd ALERT' root 2>&1");
     // Sleep for to 30 seconds to prevent syslog from getting filled too fast when in a "trigger loop".
     sleep(30);
-    // Execute "us" (or even something else!) and exit this process.
-    system(argv[0]);
+    // Execute "self" (or even something else if you want!) and exit this process.
+    system(linkname);
+    free(linkname);
     exit(EXIT_INOTIFY);
 }
