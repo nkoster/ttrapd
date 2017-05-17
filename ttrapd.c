@@ -22,20 +22,20 @@
 int main(int argc, char *argv[]) {
     struct stat sb;
     const char *self = "/proc/self/exe";
-    char *linkname;
+    char *binary;
     ssize_t r, bufsiz;
     bufsiz = sb.st_size + 1;
     if (sb.st_size == 0)
         bufsiz = PATH_MAX;
-    linkname = malloc(bufsiz);
-    if (linkname == NULL) {
+    binary = malloc(bufsiz);
+    if (binary == NULL) {
         exit(EXIT_FAILURE);
     }
-    r = readlink(self, linkname, bufsiz);
+    r = readlink(self, binary, bufsiz);
     if (r == -1) {
         exit(EXIT_FAILURE);
     }
-    linkname[r] = '\0';
+    binary[r] = '\0';
     pid_t pid, sid;
     pid = fork();
     long counter = 0;
@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
     // Sleep for to 30 seconds to prevent syslog from getting filled too fast when in a "trigger loop".
     sleep(30);
     // Execute "self" (or even something else if you want!) and exit this process.
-    system(linkname);
-    free(linkname);
+    system(binary);
+    free(binary);
     exit(EXIT_INOTIFY);
 }
