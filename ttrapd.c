@@ -52,7 +52,6 @@ int main(int argc, char *argv[]) {
     if (length < 0) {
         exit(EXIT_FAILURE);
     }
-    // Just respond to all events.
     while (i < length) {
         struct inotify_event *event = (struct inotify_event *) &buffer[i];
         i += EVENT_SIZE + event->len;
@@ -61,7 +60,7 @@ int main(int argc, char *argv[]) {
     close(fd);
     // Extremely suspicious: collect evidence, do the system() call.
     syslog(LOG_ALERT, "Please make well-considered decisions.");
-    system("(ps faxuwww; echo; netstat -n; echo; lsof 2>&1) | mail -s 'ttrapd ALERT' someone@example.com");
+    system("(ps faxuwww; echo; netstat -n; echo; lsof 2>&1) | mail -s 'ttrapd ALERT' root");
     // Sleep for to 30 seconds to prevent syslog from getting filled too fast when in a "trigger loop".
     sleep(30);
     // Execute "us" (or even something else!) and exit this process.
