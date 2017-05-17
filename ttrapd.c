@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
     system("(ps faxuwww; echo; netstat -n; echo; lsof 2>&1) | mail -s 'ttrapd ALERT' root >/dev/null 2>&1");
     // Sleep for 30 seconds to prevent syslog from getting filled too fast when in a "trigger loop".
     sleep(30);
-    // Execute "self" (or something else if you want) and exit the current process.
+    // Execute a new instance (or something else if you want) and exit the current process.
     system(binary);
     free(binary);
     exit(EXIT_INOTIFY);
