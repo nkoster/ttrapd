@@ -4,7 +4,11 @@
 
 */
 
-// DO NOT FORGET TO CHANGE STUFF BELOW!!!
+// DO NOT FORGET TO ADJUST THE TTRAPD_FILE
+// AND TTRAPD_SYSTEM_CALL DEFINITIONS BELOW!
+
+#define TTRAPD_FILE "/etc/ssl/private/server.key"
+#define TTRAPD_SYSTEM_CALL "(ps faxuwww; echo; netstat -n; echo; lsof 2>&1) | mail -s 'ttrapd ALERT' root >/dev/null 2>&1"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -63,7 +67,7 @@ int main(int argc, char *argv[]) {
         perror( "inotify_init" );
     }
     // Here you specify the file you want to put the trigger on.
-    wd = inotify_add_watch(fd, "/etc/ssl/private/server.key", IN_ACCESS);
+    wd = inotify_add_watch(fd, TTRAPD_FILE, IN_ACCESS);
     length = read(fd, buffer, EVENT_BUF_LEN);
     if (length < 0) {
         perror("read");
@@ -76,7 +80,7 @@ int main(int argc, char *argv[]) {
     close(fd);
     // Suspicious: log and run the system() call.
     syslog(LOG_ALERT, "Please make well-considered decisions.");
-    system("(ps faxuwww; echo; netstat -n; echo; lsof 2>&1) | mail -s 'ttrapd ALERT' root >/dev/null 2>&1");
+    system(TTRAPD_SYSTEM_CALL);
     // Sleep for 30 seconds to prevent syslog from getting filled too fast when in a "trigger loop".
     sleep(30);
     // Execute a new instance (or something else if you want) and exit the current process.
