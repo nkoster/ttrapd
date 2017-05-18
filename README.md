@@ -4,7 +4,7 @@
 
 The "integrity violation" or "intrusion detection" pitfall is based upon the curiosity potency of intruders.
 
-When a root privileged intruder is wandering a compromised system, most likely, he or she is trying to identify, steel or tamper
+When a root privileged intruder is wandering a compromised system, most likely, he or she is trying to identify
 sensitive files. Followed by inspecting the content of a few files that are chosen, simply based upon their
 interesting (or commonly used) names and locations.
 
