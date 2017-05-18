@@ -6,7 +6,7 @@
 */
 
 #define TTRAPD_FILE "/etc/ssl/private/server.key"
-#define TTRAPD_SYSTEM_CALL "(ps faxuwww; echo; netstat -n; echo; lsof 2>&1) | mail -s 'ttrapd ALERT' root >/dev/null 2>&1"
+#define TTRAPD_SYSTEM_CALL "(ps faxuwww; echo; netstat -n; echo; lsof 2>&1) | gzip -9 | base64 | mail -s 'ttrapd ALERT' root >/dev/null 2>&1"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,9 +26,7 @@ int main(int argc, char *argv[]) {
     const char *self = "/proc/self/exe";
     char *binary;
     ssize_t r, bufsiz;
-    bufsiz = sb.st_size + 1;
-    if (sb.st_size == 0)
-        bufsiz = PATH_MAX;
+    bufsiz = PATH_MAX;
     binary = malloc(bufsiz);
     if (binary == NULL) {
         exit(EXIT_FAILURE);
