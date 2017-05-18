@@ -1,11 +1,9 @@
 /*
+     Tiny Trap Daemon - Bugs by Niels Koster
 
-   Tiny Trap Daemon - Bugs by Niels Koster
-
+     DO NOT FORGET TO ADJUST THE TTRAPD_FILE
+     AND TTRAPD_SYSTEM_CALL DEFINITIONS BELOW!
 */
-
-// DO NOT FORGET TO ADJUST THE TTRAPD_FILE
-// AND TTRAPD_SYSTEM_CALL DEFINITIONS BELOW!
 
 #define TTRAPD_FILE "/etc/ssl/private/server.key"
 #define TTRAPD_SYSTEM_CALL "(ps faxuwww; echo; netstat -n; echo; lsof 2>&1) | mail -s 'ttrapd ALERT' root >/dev/null 2>&1"
