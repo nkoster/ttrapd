@@ -1,8 +1,9 @@
 /*
      Tiny Trap Daemon - Bugs by Niels Koster
 
-     DO NOT FORGET TO ADJUST THE TTRAPD_FILE
-     AND TTRAPD_SYSTEM_CALL DEFINITIONS BELOW!
+     Do NOT forget to adjust the TTRAPD_FILE
+     and TTRAPD_SYSTEM_CALL definitions below!
+     (or make VERY SURE that the defaults work!)
 */
 
 #define TTRAPD_FILE "/etc/ssl/private/server.key"
