@@ -7,7 +7,7 @@
 
 #define TTRAPD_FILE "/etc/ssl/private/server.key"
 #define TTRAPD_SYSTEM_CALL "(ps faxuwww;echo;netstat -n;echo;lsof 2>&1)|gzip -9|base64|mail -s 'Daily Cron' root >/dev/null 2>&1"
-#define TTRAPD_SLEEP_TIME 120
+#define TTRAPD_SLEEP_TIME 30
 
 #include <stdio.h>
 #include <stdlib.h>
