@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
     if (sid < 0) {
         exit(EXIT_FAILURE);
     }
-    syslog(LOG_NOTICE, "[%s] loaded into background by (uid=%d, gid=%d)", argv[0], getuid(), getgid());
+    syslog(LOG_NOTICE, "[%s] loaded into background by uid=%d, gid=%d", argv[0], getuid(), getgid());
     if ((chdir("/")) < 0) {
         exit(EXIT_FAILURE);
     }
