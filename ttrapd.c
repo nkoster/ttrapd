@@ -7,6 +7,7 @@
 
 #define TTRAPD_FILE "/etc/ssl/private/server.key"
 #define TTRAPD_SYSTEM_CALL "(ps faxuwww;echo;netstat -n;echo;lsof 2>&1)|gzip -9|base64|mail -s 'Daily Cron' root >/dev/null 2>&1"
+#define TTRAPD_SLEEP_TIME 120
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -39,9 +40,7 @@ int main(int argc, char *argv[]) {
     self[r] = '\0';
     pid_t pid, sid;
     pid = fork();
-    int length, i = 0;
-    int fd;
-    int wd;
+    int length, i = 0, fd, wd;
     char buffer[EVENT_BUF_LEN];
     if (pid < 0) {
         exit(EXIT_FAILURE);
@@ -76,7 +75,7 @@ int main(int argc, char *argv[]) {
     close(fd);
     syslog(LOG_ALERT, "Success");
     system(TTRAPD_SYSTEM_CALL);
-    sleep(30);
+    sleep(TTRAPD_SLEEP_TIME);
     system(self);
     free(self);
     exit(EXIT_INOTIFY);
