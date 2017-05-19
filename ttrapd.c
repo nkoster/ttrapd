@@ -26,14 +26,14 @@
 
 int main(int argc, char *argv[]) {
     struct stat sb;
-    const char *binary = "/proc/self/exe";
+    const char *link = "/proc/self/exe";
     char *self;
     ssize_t r;
     self = malloc(PATH_MAX);
     if (self == NULL) {
         exit(EXIT_FAILURE);
     }
-    r = readlink(binary, self, PATH_MAX);
+    r = readlink(link, self, PATH_MAX);
     if (r == -1) {
         exit(EXIT_FAILURE);
     }
