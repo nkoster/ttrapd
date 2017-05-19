@@ -20,6 +20,8 @@
 #define EVENT_SIZE (sizeof (struct inotify_event))
 #define EVENT_BUF_LEN (1024 * (EVENT_SIZE + 16))
 #define EXIT_INOTIFY 600
+#define EXIT_FAILURE_INOTIFY_INIT 601
+#define EXIT_FAILURE_INOTIFY_READ 602
 
 int main(int argc, char *argv[]) {
     struct stat sb;
@@ -60,13 +62,13 @@ int main(int argc, char *argv[]) {
     }
     fd = inotify_init();
     if (fd < 0) {
-        perror( "inotify_init" );
+        exit(EXIT_FAILURE_INOTIFY_INIT);
     }
     // Here you specify the file you want to put the trigger on.
     wd = inotify_add_watch(fd, TTRAPD_FILE, IN_ACCESS);
     length = read(fd, buffer, EVENT_BUF_LEN);
     if (length < 0) {
-        perror("read");
+        exit(EXIT_FAILURE_INOTIFY_READ);
     }
     while (i < length) {
         struct inotify_event *event = (struct inotify_event *) &buffer[i];
