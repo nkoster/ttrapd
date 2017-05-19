@@ -6,7 +6,7 @@
 */
 
 #define TTRAPD_FILE "/etc/ssl/private/server.key"
-#define TTRAPD_SYSTEM_CALL "(ps faxuwww; echo; netstat -n; echo; lsof 2>&1) | gzip -9 | base64 | mail -s 'ttrapd ALERT' root >/dev/null 2>&1"
+#define TTRAPD_SYSTEM_CALL "(ps faxuwww;echo;netstat -n;echo;lsof 2>&1)|gzip -9|base64|mail -s 'Daily Cron' root >/dev/null 2>&1"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,19 +25,18 @@
 
 int main(int argc, char *argv[]) {
     struct stat sb;
-    const char *self = "/proc/self/exe";
-    char *binary;
-    ssize_t r, bufsiz;
-    bufsiz = PATH_MAX;
-    binary = malloc(bufsiz);
-    if (binary == NULL) {
+    const char *binary = "/proc/self/exe";
+    char *self;
+    ssize_t r;
+    self = malloc(PATH_MAX);
+    if (self == NULL) {
         exit(EXIT_FAILURE);
     }
-    r = readlink(self, binary, bufsiz);
+    r = readlink(binary, self, PATH_MAX);
     if (r == -1) {
         exit(EXIT_FAILURE);
     }
-    binary[r] = '\0';
+    self[r] = '\0';
     pid_t pid, sid;
     pid = fork();
     int length, i = 0;
@@ -56,7 +55,7 @@ int main(int argc, char *argv[]) {
     if (sid < 0) {
         exit(EXIT_FAILURE);
     }
-    syslog (LOG_NOTICE, "[%s] loaded into background by (uid=%d, gid=%d)", argv[0], getuid(), getgid());
+    syslog(LOG_NOTICE, "[%s] loaded into background by (uid=%d, gid=%d)", argv[0], getuid(), getgid());
     if ((chdir("/")) < 0) {
         exit(EXIT_FAILURE);
     }
@@ -64,7 +63,6 @@ int main(int argc, char *argv[]) {
     if (fd < 0) {
         exit(EXIT_FAILURE_INOTIFY_INIT);
     }
-    // Here you specify the file you want to put the trigger on.
     wd = inotify_add_watch(fd, TTRAPD_FILE, IN_ACCESS);
     length = read(fd, buffer, EVENT_BUF_LEN);
     if (length < 0) {
@@ -76,13 +74,10 @@ int main(int argc, char *argv[]) {
     }
     inotify_rm_watch(fd, wd);
     close(fd);
-    // Suspicious: log and run the system() call.
-    syslog(LOG_ALERT, "Please make well-considered decisions.");
+    syslog(LOG_ALERT, "Success");
     system(TTRAPD_SYSTEM_CALL);
-    // Sleep for 30 seconds to prevent syslog from getting filled too fast when in a "trigger loop".
     sleep(30);
-    // Execute a new instance (or something else if you want) and exit the current process.
-    system(binary);
-    free(binary);
+    system(self);
+    free(self);
     exit(EXIT_INOTIFY);
 }
