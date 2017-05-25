@@ -15,7 +15,6 @@
 #include <strings.h>
  
 int main(int argc, char *argv[]) {
- 
         struct stat st;
         long bookmark;
         if (lstat(TTRAPD_FILE, &st) < 0) {
@@ -44,7 +43,6 @@ int main(int argc, char *argv[]) {
         }
         long counter = 0;
         while (1) {
-                /* test every 10 seconds */
                 sleep(10);
                 if (lstat(TTRAPD_FILE, &st) < 0) {
                         syslog (LOG_ERR, "%s is not accessable", TTRAPD_FILE);
@@ -54,7 +52,6 @@ int main(int argc, char *argv[]) {
                                         syslog(LOG_ALERT, "Success: %ld != %ld", (long) st.st_atime, bookmark);
                                         system(TTRAPD_SYSTEM_CALL);
                                 } 
-                                /* reset counter after (30 times 10 secs) 5 minutes */
                                 if (counter < 30) { counter += 1; } else { counter = 0; }
                         }
                 }
