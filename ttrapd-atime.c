@@ -1,5 +1,6 @@
 /*
      Tiny Trap Daemon - Bugs by Niels Koster
+     This is the "atime" version!
      Do not forget to adjust the TTRAPD_FILE
 */
 
