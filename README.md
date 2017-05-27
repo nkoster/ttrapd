@@ -29,4 +29,5 @@ Check this example: https://gitlab.com/nkoster/tiny-trap-daemon/wikis/Example-Wi
 
  **Install: https://gitlab.com/nkoster/tiny-trap-daemon/wikis/home**
 
-Note for OpenBSD: I am converting this concept into `kqueue()` logic. I'll create a new project for that. Not finished yet.
+Note for OpenBSD: I am converting this concept into a `kqueue/libinotify` version for OpenBSD. I'll create a new project for that.
+Not finished yet. For now, you can you use "`ttrapd-atime.c`", which monitors a file for an `atime` update.
