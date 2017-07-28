@@ -25,10 +25,10 @@ In practice, system administrators can together agree on a small set of (dummy) 
 With this approach, you might detect persons within your own organization, that violate integrity.
 
 You can also place traps on real used private keys. This approach is best for detecting hackers, intruders that do not belong to your organization.
-Check this example: https://gitlab.com/nkoster/tiny-trap-daemon/wikis/Example-Wiki
+Check this example: https://github.com/nkoster/ttrapd/wikis/Example-Wiki
 
- **Install: https://gitlab.com/nkoster/tiny-trap-daemon/wikis/home**
+ **Install: https://github.com/nkoster/ttrapd/wikis/home**
 
 Note for OpenBSD: I am converting this concept into a `kqueue/libinotify` version for OpenBSD. I'll create a new project for that.
-Not finished yet. For now, you can you use [`ttrapd-atime.c`](https://gitlab.com/nkoster/tiny-trap-daemon/blob/master/ttrapd-atime.c),
+Not finished yet. For now, you can you use [`ttrapd-atime.c`](https://github.com/nkoster/ttrapd/blob/master/ttrapd-atime.c),
 which monitors a file for an [`atime`](https://en.wikipedia.org/wiki/Stat_(system_call)) update.
