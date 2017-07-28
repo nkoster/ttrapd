@@ -12,8 +12,7 @@ For example, files like `/etc/shadow`, `/etc/ssl/private/vpn.key` or `/etc/pf.co
 Especially, when you take in account that the intruder probably gained root privileges, just for the purpose to gain access to these sensitive files.
 
 In Linux, the inotify API provides a mechanism for monitoring filesystem events.
-From the [man](http://man7.org/linux/man-pages/man7/inotify.7.html) page: "Inotify can be used to monitor individual files, or to monitor directories.
-When a directory is monitored, inotify will return events for the directory itself, and for files inside the directory."
+From the [man](http://man7.org/linux/man-pages/man7/inotify.7.html) page: "Inotify can be used to monitor individual files..."
 
 This concept makes it possible to monitor a file for an inotify event, and therefore to notice that somebody is currently using that file.
 
