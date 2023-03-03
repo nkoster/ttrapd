@@ -28,6 +28,8 @@ Check this example: https://github.com/nkoster/ttrapd/wikis/Example-Wiki
 
  **Install: https://github.com/nkoster/ttrapd/wikis/home**
 
-Note for OpenBSD: I am converting this concept into a `kqueue/libinotify` version for OpenBSD. I'll create a new project for that.
+Notes for OpenBSD:
+* ~~I am converting this concept into a `kqueue/libinotify` version for OpenBSD. I'll create a new project for that.
 Not finished yet. For now, you can you use [`ttrapd-atime.c`](https://github.com/nkoster/ttrapd/blob/master/ttrapd-atime.c),
-which monitors a file for an [`atime`](https://en.wikipedia.org/wiki/Stat_(system_call)) update.
+which monitors a file for an [`atime`](https://en.wikipedia.org/wiki/Stat_(system_call)) update.~~
+* I have no intention of creating an OpenBSD project anymore.
